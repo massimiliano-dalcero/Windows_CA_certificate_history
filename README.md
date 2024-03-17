@@ -2,6 +2,9 @@
 Powershell tool to list installed CA certificates sorted by date, useful in the first incident phase to verify if any suspicious CAs have been installed.
 
 
-![image](https://github.com/massimiliano-dalcero/Windows_CA_certificate_history/assets/5049867/40fe19c5-505f-48d6-a0b5-a6387bca196c)
+![image](https://github.com/massimiliano-dalcero/Windows_CA_certificate_history/assets/5049867/8957dee0-6a14-4306-889d-b54029d13238)
 
-![image](https://github.com/massimiliano-dalcero/Windows_CA_certificate_history/assets/5049867/bdfdbf5c-5a85-4859-8480-2ef41358351b)
+
+![image](https://github.com/massimiliano-dalcero/Windows_CA_certificate_history/assets/5049867/1a308f13-d3fe-41c3-9b47-0aee5e5d8f74)
+
+
