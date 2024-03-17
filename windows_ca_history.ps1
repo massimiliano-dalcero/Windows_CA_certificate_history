@@ -33,7 +33,7 @@ function Get-CertificateHistory {
 	Get-CertificateHistory -Key HKLM
 
 	.NOTES
-	NAME: Get-CertificateHistory
+	NAME: Windows CA Certificate History [ WiCH ] - https://github.com/massimiliano-dalcero/Windows_CA_certificate_history
 	AUTHOR: Massimiliano Dal Cero [based on Shaunhess's "Reading the LastWriteTime of a registry key using Powershell" project]
 	VERSION: 1.0
 	LASTEDIT: 17MAR2024
