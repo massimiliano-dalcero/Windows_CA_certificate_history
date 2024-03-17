@@ -163,3 +163,4 @@ public static extern int RegCloseKey(
 
 Get-CertificateHistory -Key $Key | ForEach { "Last Write: " + $_.LastWriteTime; "`tCertificate Subject: " + $_.Cert.Subject; write-host "" }
 
+Write-Host "`n`t`t== Massimiliano Dal Cero [ https://www.linkedin.com/in/dalcero/ ] =="
