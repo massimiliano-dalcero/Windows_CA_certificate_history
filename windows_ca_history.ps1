@@ -29,7 +29,7 @@ function Get-CertificateHistory {
 	.EXAMPLE
 	Get-CertificateHistory -Key HKCU
 
-    .EXAMPLE
+	.EXAMPLE
 	Get-CertificateHistory -Key HKLM
 
 	.EXAMPLE
