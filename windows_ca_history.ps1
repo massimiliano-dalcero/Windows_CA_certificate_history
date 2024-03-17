@@ -39,7 +39,7 @@ function Get-CertificateHistory {
 	NAME: Get-CertificateHistory
 	AUTHOR: Massimiliano Dal Cero [based on Shaunhess's "Reading the LastWriteTime of a registry key using Powershell" project]
 	VERSION: 1.0
-	LASTEDIT: 17MAR2023
+	LASTEDIT: 17MAR2024
 	LICENSE: Creative Commons Attribution 3.0 Unported License
 	(http://creativecommons.org/licenses/by/3.0/)
 
