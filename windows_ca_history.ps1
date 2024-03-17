@@ -175,6 +175,7 @@ public static extern int RegCloseKey(
 
 } # End Get-CertificateHistory function
 
-Get-CertificateHistory -Key $Key | ForEach { $cnt = $cnt+1; "=[$($cnt)] Last Write: " + $_.LastWriteTime; "`t[+] Registry Path:`n`t`t> " + $_.RegPath; "`t[+] Issued:`n`t`t> " + $_.CN; "`t[+] Certificate Subject:`n`t`t> " + $_.Cert.Subject; write-host "";  }
+
+Get-CertificateHistory -Key $Key | ForEach { $cnt = $cnt+1; "=[$($cnt)] Last Write: " + $_.LastWriteTime; "`t[+] Valid From: " + $_.Cert.NotBefore; "`t[+] Valid   To: " + $_.Cert.NotAfter; "`t[+] Registry Path:`n`t`t> " + $_.RegPath; "`t[+] Issued:`n`t`t> " + $_.CN; "`t[+] Certificate Subject:`n`t`t> " + $_.Cert.Subject; write-host "";  }
 
 Write-Host "`n`t`t== Massimiliano Dal Cero [ https://www.linkedin.com/in/dalcero/ ] =="
