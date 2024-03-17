@@ -151,7 +151,7 @@ public static extern int RegCloseKey(
 				$blob = (gp $reg_key)."Blob"
 				$cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 -ArgumentList (,$blob)
 				$o.Cert = $cert
-    				$o.CN = $cert.GetNameInfo([System.Security.Cryptography.X509Certificates.X509NameType]::SimpleName, $false)
+				$o.CN = $cert.GetNameInfo([System.Security.Cryptography.X509Certificates.X509NameType]::SimpleName, $false)
 				
 				$objects.add($o)
 				
