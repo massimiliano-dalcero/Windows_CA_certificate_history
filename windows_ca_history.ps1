@@ -32,9 +32,6 @@ function Get-CertificateHistory {
 	.EXAMPLE
 	Get-CertificateHistory -Key HKLM
 
-	.EXAMPLE
-	Get-RegKeyLastWriteTime -SubKey Software\Microsoft
-
 	.NOTES
 	NAME: Get-CertificateHistory
 	AUTHOR: Massimiliano Dal Cero [based on Shaunhess's "Reading the LastWriteTime of a registry key using Powershell" project]
