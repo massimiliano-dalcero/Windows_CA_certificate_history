@@ -15,7 +15,7 @@ function Get-CertificateHistory {
 	Returns the list of installed CA certificates sorted by date
 
 	.DESCRIPTION
-	Powershell tool to list installed CA certificates sorted by date, useful in the incident phase to verify if any suspicious CAs have been installed.
+	Powershell tool to list installed CA certificates sorted by date, useful in the first incident phase to verify if any suspicious CAs have been installed.
 
 	.PARAMETER Key
 	Root Key to query
