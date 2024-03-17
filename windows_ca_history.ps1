@@ -134,23 +134,25 @@ public static extern int RegCloseKey(
 			#234 means more info, 0 means success. Either way, keep reading            
 			while ( 0,234 -contains $type2::RegEnumKeyEx($hKeyref, $index++, $builder, [ref] $length, $null, $null, $null, [ref] $time) )            
 			{            
-				#create output object            
-				$o = "" | Select Key, LastWriteTime, ComputerName, Cert            
-				$o.ComputerName = "$computer"             
-				$o.Key = $builder.ToString()            
-				# TODO Change to use the time api    
+				#create output object
+				$o = "" | Select Key, LastWriteTime, ComputerName, RegPath, Cert
+				$o.ComputerName = "$computer"
+				$o.Key = $builder.ToString()
+				# TODO Change to use the time api
 				#Write-host ((Get-Date $time).ToUniversalTime())
 				$timezone=[TimeZoneInfo]::Local
 				$Offset=$timezone.BaseUtcOffset.TotalHours
-				
-				$o.LastWriteTime = (Get-Date $time).AddYears(1600).AddHours($Offset)            
-				$objects.add($o)
+    				
+				$o.LastWriteTime = (Get-Date $time).AddYears(1600).AddHours($Offset)
 				$reg_key = "$($key):\SOFTWARE\Microsoft\SystemCertificates\Root\Certificates\$($o.Key)\"
+				$o.RegPath = $reg_key 
 				$blob = (gp $reg_key)."Blob"
 				$cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 -ArgumentList (,$blob)
 				$o.Cert = $cert
-				$length = [int] 1024            
-				$builder = New-Object System.Text.StringBuilder 1024            
+				$objects.add($o)
+				
+				$length = [int] 1024
+				$builder = New-Object System.Text.StringBuilder 1024        
 			}            
 			$result = $type3::RegCloseKey($hKey);
 		}         
@@ -158,6 +160,6 @@ public static extern int RegCloseKey(
 	}            
 } # End Get-CertificateHistory function
 
-Get-CertificateHistory -Key $Key | ForEach { "Last Write: " + $_.LastWriteTime; "`tCertificate Subject: " + $_.Cert.Subject; write-host "" }
+Get-CertificateHistory -Key $Key | ForEach { "= Last Write: " + $_.LastWriteTime; "`t[+] Registry Path:`n`t`t> " + $_.RegPath; "`t[+] Certificate Subject:`n`t`t> " + $_.Cert.Subject; write-host "" }
 
 Write-Host "`n`t`t== Massimiliano Dal Cero [ https://www.linkedin.com/in/dalcero/ ] =="
