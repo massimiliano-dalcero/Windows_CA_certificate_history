@@ -79,21 +79,23 @@ function Get-CertificateHistory {
               
 			$sig0 = @'
 [DllImport("advapi32.dll", SetLastError = true)]
-  public static extern int RegConnectRegistry(
+public static extern int RegConnectRegistry(
   	string lpMachineName,
 	int hkey,
-	ref int phkResult);
+	ref int phkResult
+);
 '@            
 			$type0 = Add-Type -MemberDefinition $sig0 -Name Win32Utils -Namespace RegConnectRegistry -Using System.Text -PassThru            
             
 			$sig1 = @'
 [DllImport("advapi32.dll", CharSet = CharSet.Auto)]
-  public static extern int RegOpenKeyEx(
+public static extern int RegOpenKeyEx(
     int hKey,
     string subKey,
     int ulOptions,
     int samDesired,
-    out int hkResult);
+    out int hkResult
+);
 '@            
 			$type1 = Add-Type -MemberDefinition $sig1 -Name Win32Utils -Namespace RegOpenKeyEx -Using System.Text -PassThru            
             
@@ -107,16 +109,16 @@ extern public static int RegEnumKeyEx(
     int reserved,
     int lpClass,
     int lpcbClass,
-    out long lpftLastWriteTime);
-
-
+    out long lpftLastWriteTime
+);
 '@            
 			$type2 = Add-Type -MemberDefinition $sig2 -Name Win32Utils -Namespace RegEnumKeyEx -Using System.Text -PassThru            
             
 			$sig3 = @'
 [DllImport("advapi32.dll", SetLastError=true)]
 public static extern int RegCloseKey(
-    int hKey);
+    int hKey
+);
 '@            
 			$type3 = Add-Type -MemberDefinition $sig3 -Name Win32Utils -Namespace RegCloseKey -Using System.Text -PassThru            
 			
