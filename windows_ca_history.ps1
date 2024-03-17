@@ -137,7 +137,7 @@ public static extern int RegCloseKey(
 			while ( 0,234 -contains $type2::RegEnumKeyEx($hKeyref, $index++, $builder, [ref] $length, $null, $null, $null, [ref] $time) )            
 			{            
 				#create output object
-				$o = "" | Select Key, LastWriteTime, ComputerName, RegPath, Cert
+				$o = "" | Select Key, LastWriteTime, ComputerName, RegPath, Cert, CN
 				$o.ComputerName = "$computer"
 				$o.Key = $builder.ToString()
 				# TODO Change to use the time api
