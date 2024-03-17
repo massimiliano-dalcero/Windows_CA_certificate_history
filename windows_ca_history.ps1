@@ -151,6 +151,8 @@ public static extern int RegCloseKey(
 				$blob = (gp $reg_key)."Blob"
 				$cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 -ArgumentList (,$blob)
 				$o.Cert = $cert
+    				$o.CN = $cert.GetNameInfo([System.Security.Cryptography.X509Certificates.X509NameType]::SimpleName, $false)
+				
 				$objects.add($o)
 				
 				$length = [int] 1024
@@ -162,6 +164,6 @@ public static extern int RegCloseKey(
 	}            
 } # End Get-CertificateHistory function
 
-Get-CertificateHistory -Key $Key | ForEach { "= Last Write: " + $_.LastWriteTime; "`t[+] Registry Path:`n`t`t> " + $_.RegPath; "`t[+] Certificate Subject:`n`t`t> " + $_.Cert.Subject; write-host "" }
+Get-CertificateHistory -Key $Key | ForEach { "= Last Write: " + $_.LastWriteTime; "`t[+] Registry Path:`n`t`t> " + $_.RegPath; "`t[+] Issued:`n`t`t> " + $_.CN; "`t[+] Certificate Subject:`n`t`t> " + $_.Cert.Subject; write-host "";  }
 
 Write-Host "`n`t`t== Massimiliano Dal Cero [ https://www.linkedin.com/in/dalcero/ ] =="
