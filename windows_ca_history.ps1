@@ -25,15 +25,14 @@ function Get-CertificateHistory {
 	HKU  - Placeholder that contains the user-profile hives of logged-on
 	accounts.
 
+	.EXAMPLE
+	Get-CertificateHistory 
 
 	.EXAMPLE
 	Get-CertificateHistory -Key HKCU
 
-    .EXAMPLE
-	Get-CertificateHistory -Key HKLM
-
 	.EXAMPLE
-	Get-RegKeyLastWriteTime -SubKey Software\Microsoft
+	Get-CertificateHistory -Key HKLM
 
 	.NOTES
 	NAME: Get-CertificateHistory
