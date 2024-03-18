@@ -169,9 +169,8 @@ public static extern int RegCloseKey(
 				#write-host $builder         
 			}
 		}
-		$objects | Sort-Object -Property LastWriteTime
-	}            
-
+		$objects | Sort-Object -Propery LastWriteTime
+	}
 } # End Get-CertificateHistory function
 
 
