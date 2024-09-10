@@ -143,7 +143,7 @@ public static extern int RegCloseKey(
 				while ( 0,234 -contains $type2::RegEnumKeyEx($hKeyref, $index++, $builder, [ref] $length, $null, $null, $null, [ref] $time) )            
 				{            
 					#create output object
-					$o = "" | Select Key, LastWriteTime, ComputerName, RegPath, Cert, CN, cnt
+					$o = "" | Select Key, LastWriteTime, ComputerName, RegPath, Cert, CN,thumbprint, CrtShVerification
 					$o.ComputerName = "$computer"
 					$o.Key = $builder.ToString()
 					# TODO Change to use the time api
@@ -158,6 +158,21 @@ public static extern int RegCloseKey(
 					$cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2 -ArgumentList (,$blob)
 					$o.Cert = $cert
 					$o.CN = $cert.GetNameInfo([System.Security.Cryptography.X509Certificates.X509NameType]::SimpleName, $false)
+
+	     				$thumbprint = $cert.Thumbprint
+					$crtShUrl = "https://crt.sh/?q=$thumbprint"
+					try {
+						$ProgressPreference = 'SilentlyContinue' 
+						$response = Invoke-WebRequest -Uri $crtShUrl -Method Get -ErrorAction Stop -TimeoutSec 5
+	
+						if ($response.Content -like "*Certificate not found*") {
+							$o.CrtShVerification = "NOT trusted" 
+						} else {
+							$o.CrtShVerification = "Trusted"
+						}
+					} catch {
+						$o.CrtShVerification = "Request Error"
+					}
 				
 					$objects.add($o)
 
@@ -174,6 +189,19 @@ public static extern int RegCloseKey(
 } # End Get-CertificateHistory function
 
 
-Get-CertificateHistory -Key $Key | ForEach { $cnt = $cnt+1; "=[$($cnt)] Last Write: " + $_.LastWriteTime; "`t[+] Valid From: " + $_.Cert.NotBefore; "`t[+] Valid   To: " + $_.Cert.NotAfter; "`t[+] Registry Path:`n`t`t> " + $_.RegPath; "`t[+] Issued:`n`t`t> " + $_.CN; "`t[+] Certificate Subject:`n`t`t> " + $_.Cert.Subject; write-host "";  }
+Get-CertificateHistory -Key $Key | ForEach { 
+	"= Last Write: " + $_.LastWriteTime; 
+	"`t[+] Registry Path:`n`t`t> " + $_.RegPath; 
+	"`t[+] Issued:`n`t`t> " + $_.CN; 
+	"`t[+] Certificate Subject:`n`t`t> " + $_.Cert.Subject; 
+	"`t[+] Thumbprint:`n`t`t> " + $_.thumbprint;
+	if ($_.CrtShVerification -eq "NOT trusted") {
+		Write-Host "`t[+] CRT.sh Check:`n`t`t> " -NoNewline
+		Write-Host $_.CrtShVerification -ForegroundColor Red
+	} else {
+		"`t[+] CRT.sh Check:`n`t`t> " + $_.CrtShVerification
+	}
+    write-host ""
+}
 
 Write-Host "`n`t`t== Massimiliano Dal Cero [ https://www.linkedin.com/in/dalcero/ ] =="
